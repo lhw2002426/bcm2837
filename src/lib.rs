@@ -17,4 +17,4 @@ pub mod mailbox;
 //pub mod mini_uart;
 //pub mod pwm;
 pub mod qa7_control;
-//pub mod timer;
+pub mod timer;

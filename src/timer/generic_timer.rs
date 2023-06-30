@@ -1,6 +1,7 @@
 use super::BasicTimer;
 use crate::qa7_control::{CoreInterruptSource, QA7Control};
-use aarch64::{asm, regs::*};
+//use aarch64::{asm, regs::*};
+use cortex-a::{asm,registers::*}
 
 /// Core timers interrupts (ref: QA7 4.6, page 13)
 #[repr(u8)]
