@@ -8,6 +8,9 @@ pub use system_timer::SystemTimer;
 
 /// The main timer
 pub type Timer = GenericTimer;
+use core::arch::asm;
+use aarch64_cpu::{asm, registers::*};
+use tock_registers::interfaces::Readable;
 
 /// The Raspberry Pi timer.
 pub trait BasicTimer {
@@ -52,4 +55,9 @@ pub fn delay_us(us: usize) {
     while timer.read() - start_time < us as u64 {
         unsafe { asm!("nop") }
     }
+}
+
+#[inline]
+pub fn cpuid() -> usize {
+    (MPIDR_EL1.get() & 3) as usize
 }

@@ -1,13 +1,16 @@
-use super::BasicTimer;
+use super::{BasicTimer,cpuid};
 use crate::qa7_control::{CoreInterruptSource, QA7Control};
 //use aarch64::{asm, regs::*};
-use cortex-a::{asm,registers::*}
+use aarch64_cpu::{asm, registers::*};
+use tock_registers::interfaces::Writeable;
+use tock_registers::interfaces::Readable;
 
 /// Core timers interrupts (ref: QA7 4.6, page 13)
 #[repr(u8)]
 #[allow(dead_code)]
 #[allow(non_snake_case)]
 #[derive(Copy, Clone, PartialEq, Debug)]
+
 enum CoreTimerControl {
     CNTPSIRQ = 0,
     CNTPNSIRQ = 1,
@@ -36,14 +39,14 @@ impl BasicTimer for GenericTimer {
 
     #[inline]
     fn init(&mut self) {
-        self.control.registers.CORE_TIMER_IRQCNTL[asm::cpuid()]
+        self.control.registers.CORE_TIMER_IRQCNTL[cpuid()]
             .write(1 << (CoreTimerControl::CNTPNSIRQ as u8));
         CNTP_CTL_EL0.write(CNTP_CTL_EL0::ENABLE::SET);
     }
 
     #[inline]
     fn stop(&mut self) {
-        self.control.registers.CORE_TIMER_IRQCNTL[asm::cpuid()].write(0);
+        self.control.registers.CORE_TIMER_IRQCNTL[cpuid()].write(0);
     }
 
     #[inline]
@@ -62,6 +65,6 @@ impl BasicTimer for GenericTimer {
     #[inline]
     fn is_pending(&self) -> bool {
         self.control
-            .is_irq_pending(asm::cpuid(), CoreInterruptSource::CNTPNSIRQ)
+            .is_irq_pending(cpuid(), CoreInterruptSource::CNTPNSIRQ)
     }
 }
