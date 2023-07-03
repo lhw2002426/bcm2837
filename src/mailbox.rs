@@ -3,7 +3,7 @@ use volatile::{ReadOnly, Volatile, WriteOnly};
 
 /// The base address for the `MU` registers.
 //const MAILBOX_BASE: usize = IO_BASE + 0xB000 + 0x880;
-pub const MAILBOX_BASE: usize =  0xFE040000 + 0xB000 + 0x880;
+pub const MAILBOX_BASE: usize =  0xFE000000 + 0xB000 + 0x880;
 
 /// Available mailbox channels
 ///
