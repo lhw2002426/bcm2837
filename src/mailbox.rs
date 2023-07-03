@@ -2,7 +2,8 @@ use crate::addr::IO_BASE;
 use volatile::{ReadOnly, Volatile, WriteOnly};
 
 /// The base address for the `MU` registers.
-const MAILBOX_BASE: usize = IO_BASE + 0xB000 + 0x880;
+//const MAILBOX_BASE: usize = IO_BASE + 0xB000 + 0x880;
+const MAILBOX_BASE: usize =  0xFE000000 + 0xB000 + 0x880;
 
 /// Available mailbox channels
 ///
