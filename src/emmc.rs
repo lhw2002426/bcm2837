@@ -1,7 +1,8 @@
 use crate::addr::IO_BASE;
 use volatile::Volatile;
 
-pub const EMMC_BASE: usize = IO_BASE + 0x300000;
+//pub const EMMC_BASE: usize = IO_BASE + 0x300000;
+pub const EMMC_BASE: usize = 0x3F300000;
 
 #[repr(C)]
 #[allow(non_snake_case)]
